@@ -1,7 +1,7 @@
 import requests
 
 def get_pollen_data():
-    key = "your_api_key"
+    key = "https://pollen.googleapis.com/v1/forecast:lookup?key=AIzaSyBXARzX-m2kNyGHjaYB3RWGqjXjQT-zBuo&location.longitude=35.32&location.latitude=32.32&days=1"
     response = requests.get(key)
 
     if response.status_code == 200:

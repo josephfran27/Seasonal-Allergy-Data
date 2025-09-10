@@ -40,18 +40,16 @@ def parse_pollen_response(data):
 
     for pollen_type in daily_info[0].get("pollenTypeInfo", []):
         name = pollen_type.get("displayName", "Unknown")
-        in_season = pollen_type.get("inSeason", False)
         index_info = pollen_type.get("indexInfo", {})
         value = index_info.get("value", 0)
         category = index_info.get("category", "Unknown")
         recommendations = pollen_type.get("healthRecommendations")
 
         result.append({
-            "Allergen/Pollen Name": name,
-            "In Season?": in_season,
-            "Severity Index (0-5)": value,
-            "Severity Description": category,
-            "Suggestions": recommendations
+            "name": name,
+            "value": value,
+            "category": category,
+            "recommendations": recommendations
         })
 
     return result

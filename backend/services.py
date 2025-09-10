@@ -3,14 +3,19 @@ import os
 from dotenv import load_dotenv
 from geopy.geocoders import Nominatim
 
-#loads .env variables
+# -- API VARIABLES --
+#loads .env variables (API Key)
 load_dotenv()
 
-#variables for accessing api
+#variables for accessing google's pollen api
 API_KEY = os.getenv("API_KEY")
 BASE_URL = "https://pollen.googleapis.com/v1/forecast:lookup"
 
+
+# -- SERVICE FUNCTIONS --
+#Primary function for fetching the pollen forcast from Google's Pollen API.
 def get_pollen_data(lat: float, lon: float, days: int = 1):
+    #gets converted to query parameters in the URL for the full URL
     params = {
         "key": API_KEY,
         "location.latitude": lat,
@@ -23,9 +28,9 @@ def get_pollen_data(lat: float, lon: float, days: int = 1):
     if response.status_code != 200: 
         return "Error fetching pollen data."
     
-
     return response.json()
 
+#Parses the API response into a cleaner format and creates a user friendly dict of results.
 def parse_pollen_response(data):
     result = []
 
@@ -42,15 +47,16 @@ def parse_pollen_response(data):
         recommendations = pollen_type.get("healthRecommendations")
 
         result.append({
-            "name": name,
-            "in_season": in_season,
-            "value": value,
-            "category": category,
-            "reccomendations": recommendations
+            "Allergen/Pollen Name": name,
+            "In Season?": in_season,
+            "Severity Index (0-5)": value,
+            "Severity Description": category,
+            "Suggestions": recommendations
         })
 
     return result
 
+#Uses python's geolocator to take the lat and lon passed by the user and return their city and state.
 def find_location(lat, lon):
     geolocator = Nominatim(user_agent="my_city")
 

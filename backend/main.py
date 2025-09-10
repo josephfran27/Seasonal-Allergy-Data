@@ -1,6 +1,6 @@
 #FastAPI entry point
 from fastapi import FastAPI, Query
-from services import get_pollen_data, parse_pollen_response
+from services import get_pollen_data, parse_pollen_response, find_location
 
 app = FastAPI()
 
@@ -11,6 +11,7 @@ def predict(lat: float = Query(...), lon: float = Query(...)):
         return "Error: Failed to fetch pollen data."
     
     parsed = parse_pollen_response(data)
-    return {"latitude": lat, "longitude": lon, "pollen": parsed}
+    state, city = find_location(lat, lon)
+    return {"State": state, "City": city, "pollen": parsed}
 
 

@@ -39,7 +39,7 @@ def parse_pollen_response(data):
         index_info = pollen_type.get("indexInfo", {})
         value = index_info.get("value", 0)
         category = index_info.get("category", "Unknown")
-        recommendations = pollen_type.get("healthRecommendations", [])
+        recommendations = pollen_type.get("healthRecommendations")
 
         result.append({
             "name": name,
@@ -52,3 +52,17 @@ def parse_pollen_response(data):
     return result
 
 def find_location(lat, lon):
+    geolocator = Nominatim(user_agent="my_city")
+
+    location = geolocator.reverse(f"{lat}, {lon}", language="en")
+    address_components = location.raw['address']
+
+    user_state = address_components.get('state')
+
+    user_city = (
+        address_components.get('city')
+        or address_components.get('town')
+        or address_components.get('county')
+        or "Unknown"
+    )
+    return user_state, user_city

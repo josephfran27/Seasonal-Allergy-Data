@@ -117,15 +117,14 @@ function App() {
     <div className="app-container">
       {/* page header */}
       <div className="header">
-        <GiLindenLeaf className="header-icon"/>
-        <h1>Pollen Data</h1>
+        <h1><GiLindenLeaf/>   Pollen Data   </h1>
         <h3>Enter your location for summary of the pollen/allergens around you!</h3>
       </div>
 
       {/* location input section */}
       <div className="input-section">
-        <div className="input-grid">
-          <div className="input-group">
+        <div className="input-group">
+          <div className="input-field">
             <label>Latitude</label>
             <input
               type="number"
@@ -134,7 +133,9 @@ function App() {
               value={location.lat}
               onChange={(e) => setLocation({...location, lat: e.target.value})}
             />
-            <label>Longitude</label>
+          </div>
+          <div className="input-field">
+          <label>Longitude</label>
             <input
               type="number"
               placeholder="Input longitude"
@@ -152,7 +153,7 @@ function App() {
             disabled={loading || !location.lat || !location.lon}
             className='submit-location-button'
           >
-            {loading ? 'Fetching Pollen Data...' : 'Get Pollen Data'}
+            {loading ? 'Fetching Pollen Data...' : 'Submit Coordinates'}
           </button>
 
           <button
@@ -160,7 +161,7 @@ function App() {
             disabled={loading}
             className='current-location-button'
           >
-            Use my location
+            Use current location
           </button>
         </div>
 
@@ -207,13 +208,7 @@ function App() {
                       <div className='recommendation-list'>
                         {pollen.recommendations.map((rec, recIndex) => (
                           <div key={recIndex} className="recommendation">
-                            <div className="recommendation-header">
-                              {/* shows who the recommendation applies to */}
-                              <span className='recommendation-category'>
-                                {rec.category?.replace(/_/g, ' ')}
-                              </span>
-                            </div>
-                            <p className="recommendation-text">{rec.text}</p>
+                            <p className="recommendation-text">{rec}</p>
                           </div>
                         ))}
                       </div>
@@ -229,10 +224,6 @@ function App() {
           </div>
         </div>
       )}
-
-      <p className="little-green-text">
-        Hopefully you can learn something from this!
-      </p>
     </div>
   )
 }

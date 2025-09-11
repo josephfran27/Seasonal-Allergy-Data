@@ -37,13 +37,27 @@ def parse_pollen_response(data):
     daily_info = data.get("dailyInfo", [])
     if not daily_info:
         return []
+    
+    day_data = daily_info[0]
 
-    for pollen_type in daily_info[0].get("pollenTypeInfo", []):
+    for pollen_type in day_data.get("pollenTypeInfo", []):
         name = pollen_type.get("displayName", "Unknown")
         index_info = pollen_type.get("indexInfo", {})
         value = index_info.get("value", 0)
-        category = index_info.get("category", "Unknown")
-        recommendations = pollen_type.get("healthRecommendations")
+        # fixe unknwon category bug by simply using the value
+        if value >= 5:
+            category = "high"
+        elif value >= 3:
+            category = "medium"
+        elif value >= 2: 
+            category = "low"
+        else:
+            category = "very_low"
+            
+        recommendations = index_info.get("healthRecommendations", [])
+
+        if not recommendations:
+            recommendations = pollen_type.get("healthRecommendations", [])
 
         result.append({
             "name": name,

@@ -28,7 +28,7 @@ A full-stack web application that provides real-time pollen and allergen data to
 ### New York City Example
 <img width="600" alt="Screenshot 2025-09-10 at 8 01 07 PM" src="https://github.com/user-attachments/assets/b3f8169e-96b7-41de-a3a0-a3af0310c9db" />
 
-##Future Goals
+## Future Goals
 In the future I would like to implement a database so the user can track what effects them and allergy history.
 
 

@@ -3,7 +3,7 @@
 A full-stack web application that provides real-time pollen and allergen data to help users make descisions about their outdoor activities based on their location. This project really hit home as someone who suffers from seasonal allergies.
 
 ## Features
-• Real-time Pollen Data based on locatoin
+• Real-time Pollen Data based on location
 • Health reccomendations
 • Responsive design
 

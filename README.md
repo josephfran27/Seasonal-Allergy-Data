@@ -7,7 +7,7 @@ A full-stack web application that provides real-time pollen and allergen data to
 • Health reccomendations
 • Responsive design
 
-## Teach Stach
+## Tech Stach
 ### Frontend
 • React
 • CSS
